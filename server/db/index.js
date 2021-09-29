@@ -1,7 +1,7 @@
 const mysql = require('mysql2');
 const createTables = require('./config');
 const Promise = require('bluebird');
-const database = 'MyDB';
+const database = 'data2';
 
 const connection = mysql.createConnection({
   user: 'root',

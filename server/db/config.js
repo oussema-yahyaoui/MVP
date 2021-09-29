@@ -6,10 +6,12 @@ module.exports = (db) => {
   }
   // Create a table
   return db.queryAsync(`
-    CREATE TABLE IF NOT EXISTS tableName (
+    CREATE TABLE IF NOT EXISTS dataphone (
       id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-      column1 VARCHAR(255),
-      column2 INT NOT NULL DEFAULT 0
+      phonename VARCHAR(255),
+      price VARCHAR(255),
+      image VARCHAR(255),
+      description VARCHAR(255)
     );`)
     .error(err => {
       console.log(err);

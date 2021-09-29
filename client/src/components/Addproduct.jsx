@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 import "../index.css";
 
 export default class Addproduct extends Component {
@@ -11,28 +12,43 @@ export default class Addproduct extends Component {
       description: "",
     };
 
-    this.hundlechangePhonename = this.hundlechangePhonename.bind(this);
-    this.hundlechangePrice = this.hundlechangePrice.bind(this);
-    this.hundlechangeImage = this.hundlechangeImage.bind(this);
-    this.hundlechangeDescription = this.hundlechangeDescription.bind(this);
-    // this.hundleClick = this.hundleClick.bind(this);
+    this.handlechangePhonename = this.handlechangePhonename.bind(this);
+    this.handlechangePrice = this.handlechangePrice.bind(this);
+    this.handlechangeImage = this.handlechangeImage.bind(this);
+    this.handlechangeDescription = this.handlechangeDescription.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
-  hundlechangePhonename(event) {
+  handlechangePhonename(event) {
     this.setState({ phone_name: event.target.value });
   }
-  hundlechangePrice(event) {
+  handlechangePrice(event) {
     this.setState({ price: event.target.value });
   }
-  hundlechangeImage(event) {
+  handlechangeImage(event) {
     this.setState({ image: event.target.value });
   }
-  hundlechangeDescription(event) {
+  handlechangeDescription(event) {
     this.setState({ description: event.target.value });
+  }
+  handleClick() {
+    axios.post("/addphone", this.state).then((response) => {
+      console.log(response);
+    });
+  }
+  componentDidMount() {
+    axios
+      .get("/phones")
+      .then((response) => {
+        console.log("from the server", response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
   render() {
     return (
       <div>
-        <form>
+        <div>
           <div className="container">
             <h1>Add a phone for sale</h1>
             <p>Please fill in this form to sale your phone.</p>
@@ -41,7 +57,7 @@ export default class Addproduct extends Component {
               <b>Mobile Phone Name:</b>
             </label>
             <input
-              onChange={this.hundlechangePhonename}
+              onChange={this.handlechangePhonename}
               type="text"
               placeholder="Enter Phone Name "
             />
@@ -49,7 +65,7 @@ export default class Addproduct extends Component {
               <b>Mobile Phone Price:</b>
             </label>
             <input
-              onChange={this.hundlechangePrice}
+              onChange={this.handlechangePrice}
               type="text"
               placeholder="Enter Phone Price"
             />
@@ -58,7 +74,7 @@ export default class Addproduct extends Component {
               <b> Add Mobile Phone image</b>
             </label>
             <input
-              onChange={this.hundlechangeImage}
+              onChange={this.handlechangeImage}
               type="text"
               placeholder=" Add Mobile Phone image"
             />
@@ -68,15 +84,15 @@ export default class Addproduct extends Component {
             </label>
 
             <input
-              onChange={this.hundlechangeDescription}
+              onChange={this.handlechangeDescription}
               type="text"
               placeholder="Description"
             />
-            <button type="submit" className="registerbtn">
+            <button onClick={this.handleClick} className="registerbtn">
               validate
             </button>
           </div>
-        </form>
+        </div>
       </div>
     );
   }
