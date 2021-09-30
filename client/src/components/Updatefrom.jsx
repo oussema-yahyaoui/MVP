@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 
 export default class Updatefrom extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       phonename: "",
       price: "",
@@ -15,8 +15,9 @@ export default class Updatefrom extends Component {
     this.handlechangeImage = this.handlechangeImage.bind(this);
     this.handlechangeDescription = this.handlechangeDescription.bind(this);
   }
+
   handlechangePhonename(event) {
-    this.setState({ phone_name: event.target.value });
+    this.setState({ phonename: event.target.value });
   }
   handlechangePrice(event) {
     this.setState({ price: event.target.value });
@@ -29,6 +30,7 @@ export default class Updatefrom extends Component {
   }
 
   render() {
+    console.log("updateform", this.state.phonename);
     return (
       <div>
         <div>
@@ -71,7 +73,20 @@ export default class Updatefrom extends Component {
               type="text"
               placeholder="Description"
             />
-            <button className="registerbtn">update</button>
+            <button
+              className="registerbtn"
+              onClick={() =>
+                this.props.handleupdate(
+                  this.props.theId,
+                  this.state.phonename,
+                  this.state.price,
+                  this.state.image,
+                  this.state.description
+                )
+              }
+            >
+              update
+            </button>
           </div>
         </div>
       </div>

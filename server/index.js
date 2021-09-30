@@ -26,7 +26,27 @@ app.get("/phones", (req, res) => {
     if (err) {
       console.log(err)
     }
+    res.json(results)
+  })
+})
+
+app.delete("/delphones/:id", (req, res) => {
+  console.log(req.params.id)
+  db.query("delete from dataphone where id = ?;", req.params.id, (err, results) => {
+    if (err) {
+      console.log(err)
+    }
     res.send(results)
+  })
+})
+
+app.put("/udphones/:id", (req, res) => {
+  console.log(req.body)
+  db.query("update dataphone set phonename=?,price=?,image=?,description=? where id=?;", [req.body.newphone, req.body.newprice, req.body.newimage, req.body.newdescription, req.params.id], (err, results) => {
+    if (err) {
+      console.log(err)
+    }
+    res.send({ done: "done" })
   })
 })
 app.listen(port, () => {
