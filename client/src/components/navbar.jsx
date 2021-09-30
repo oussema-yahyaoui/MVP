@@ -6,7 +6,7 @@ export default class navbar extends Component {
       <div>
         <div className="topnav">
           <a className="active" href="#home">
-            Home
+            used iphone store
           </a>
           <a href="#contact">Contact</a>
           <a href="#about">About</a>
