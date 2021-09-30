@@ -39,7 +39,7 @@ export default class Addproduct extends Component {
     axios
       .get("/phones")
       .then((response) => {
-        console.log("from the server", response.data);
+        // console.log("from the server", response.data);
       })
       .catch((err) => {
         console.log(err);

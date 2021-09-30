@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "../Listephone.css";
+import axios from "axios";
 import UpdateFrom from "../components/Updatefrom.jsx";
 export default class Listphone extends Component {
   constructor(props) {
@@ -11,6 +12,18 @@ export default class Listphone extends Component {
     };
     this.changecomponent = this.changecomponent.bind(this);
   }
+  componentDidMount() {
+    axios
+      .get("/phones")
+      .then((response) => {
+        // console.log(response);
+        this.setState({ phones: response.data });
+      })
+
+      .catch((err) => {
+        console.log(err);
+      });
+  }
   changecomponent() {
     this.setState({
       pathlistphone: false,
@@ -21,23 +34,18 @@ export default class Listphone extends Component {
     if (this.state.pathlistphone === true) {
       return (
         <div>
-          <div className="card">
-            <img
-              src="https://cdn.vox-cdn.com/thumbor/SJcmPEheS_cbdujd4zbIPTpuXfg=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/13315959/akrales_181019_3014_0770.jpg"
-              style={{ width: 300 }}
-              alt=""
-            />
-            <h1>Tailored Jeans</h1>
-            <p className="price">$19.99</p>
-            <p>
-              Some text about the jeans. Super slim and comfy lorem ipsum lorem
-              jeansum. Lorem jeamsun denim lorem jeansum.
-            </p>
-            <p>
-              <button>delete</button>
-              <button onClick={this.changecomponent}>update</button>
-            </p>
-          </div>
+          {this.state.phones.map((phone, index) => (
+            <div className="card" key={index}>
+              <img src={phone.image} style={{ width: 300 }} alt="" />
+              <h1>{phone.name}</h1>
+              <p className="price">{phone.price}</p>
+              <p>{phone.description}</p>
+              <p>
+                <button>delete</button>
+                <button onClick={this.changecomponent}>update</button>
+              </p>
+            </div>
+          ))}
         </div>
       );
     }
